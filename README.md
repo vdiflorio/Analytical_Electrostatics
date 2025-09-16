@@ -34,6 +34,7 @@ for solutes modeled as $N_s$ non-overlapping dielectric spheres $\Omega_{m,i}$ (
 
 [2] Siryk, S. V., & Rocchia, W. (2022). Arbitrary-Shape Dielectric Particles Interacting in the Linearized Poisson–Boltzmann Framework: An Analytical Treatment. The Journal of Physical Chemistry B, 126(49), 10400-10426.
 
-[3] V. Di Florio, P. Ansalone, S. Siryk, S. Decherchi, C. de Falco, and W. Rocchia, “NextGenPB: an analytically-enabled super resolution and local (de)refinement poisson-boltzmann equation solver.” submitted, February 2025.
+[3] Di Florio, V., Ansalone, P., Siryk, S. V., Decherchi, S., De Falco, C., & Rocchia, W. (2025). NextGenPB: An analytically-enabled super resolution tool for solving the Poisson-Boltzmann Equation featuring local (de) refinement. Computer Physics Communications, 109816.
 
 [4] Rocchia, W., Alexov, E., & Honig, B. (2001). Extending the applicability of the nonlinear Poisson− Boltzmann equation: multiple dielectric constants and multivalent ions. The Journal of Physical Chemistry B, 105(28), 6507-6514.
+
