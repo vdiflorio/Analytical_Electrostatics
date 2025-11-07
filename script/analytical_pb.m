@@ -29,13 +29,13 @@ function analytical_pb(pqr_path, mode)
 %   matlab -nodisplay -r "compute_potential"
 %
 %   % 2. Specify PQR path, compute energy only
-%   matlab -nodisplay -r "compute_potential('../data/30spheres.pqr', 'energy')"
+%   matlab -nodisplay -r "analytical_pb('../data/30spheres.pqr', 'energy')"
 %
 %   % 3. Compute potential on given points from a file (x y z columns)
-%   matlab -nodisplay -r "compute_potential('../data/30spheres.pqr', 'points.txt')"
+%   matlab -nodisplay -r "analytical_pb('../data/30spheres.pqr', 'points.txt')"
 %
 %   % 4. Generate a mesh box around the spheres and compute potential map
-%   matlab -nodisplay -r "compute_potential('../data/30spheres.pqr', 'mesh')"
+%   matlab -nodisplay -r "analytical_pb('../data/30spheres.pqr', 'mesh')"
 %
 % -------------------------------------------------------------------------
 % INPUT ARGUMENTS:
