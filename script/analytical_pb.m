@@ -17,7 +17,7 @@
  
  
 function analytical_pb(pqr_path, mode)
-% compute_potential.m
+% analytical_pb.m
 %
 % This script computes electrostatic energy and, optionally, the
 % electrostatic potential for a system of charged spheres defined in a PQR file.
