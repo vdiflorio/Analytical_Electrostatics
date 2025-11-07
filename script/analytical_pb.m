@@ -16,7 +16,7 @@
 % along with this program. If not, see <https://www.gnu.org/licenses/>.  
  
  
-function compute_potential(pqr_path, mode)
+function analytical_pb(pqr_path, mode)
 % compute_potential.m
 %
 % This script computes electrostatic energy and, optionally, the
