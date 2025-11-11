@@ -32,7 +32,7 @@ kappa=medium_params.kappa;
 epsilon_m=medium_params.epsilon;
 Nnm=(n_max+1)^2;
 linear_system.A=zeros(numel(particles_params)*Nnm);
-linear_system.b=zeros([numel(particles_params)*((n_max+1)^2),1]);
+linear_system.b=zeros([numel(particles_params)*Nnm,1]);
 
 nmLM_mapping=zeros([n_max+1,2*n_max+1]);
 inc=1;
@@ -73,9 +73,21 @@ end
 % [L,U]=ilu(sparse(linear_system.A),struct('type','ilutp','droptol',1e-1));
 % coeffs=gmres(linear_system.A,linear_system.b,10,1e-10,100,L,U);
 % clear L U;
+Upsilon=zeros([size(linear_system.A,2),1]);
+inc=numel(Upsilon);
+for i=numel(particles_params):-1:1    
+    Upsilon((inc-Nnm+1):inc)=generate_vec_temp(1./((2*(0:n_max)+1).*k_n(0:n_max,kappa*particles_params(i).radius)*particles_params(i).radius),n_max);
+    inc=inc-Nnm;
+end
+Upsilon=spdiags(Upsilon,0,numel(Upsilon),numel(Upsilon));
+
+linear_system.A=linear_system.A*Upsilon;
+
 M=spdiags(diag(linear_system.A),0,size(linear_system.A,1),size(linear_system.A,2));
 coeffs=gmres(linear_system.A,linear_system.b,10,tol_linsolver,100,M,[],M\linear_system.b);
-clear M;
+coeffs=Upsilon*coeffs;
+clear M Upsilon;
+
 % coeffs=linear_system.A\linear_system.b;
 % coeffs=full(sparse(linear_system.A)\sparse(linear_system.b));
 
@@ -119,7 +131,6 @@ energy=0;
 for i=1:numel(particles_params)
     energy=energy+particles_params(i).charge*particles_coefficients(i).L_nm(1)/sqrt(4*pi);
 end
-
 energy=t_eps0_inv*energy/2;
 end
 
@@ -210,12 +221,17 @@ end
 XI_ij_matrices=squeeze(num2cell(permute(reshape(XI_ij_matrices,[N_particles*(N_particles-1)/2,Nnm,Nnm]),[2 3 1]),[1 2]));
 end
 
-function n_diag_matrix=generate_diagonal_matrix_n(elements_on_diaglonal,n_max)
-temp=zeros([(n_max+1)^2,1]);
+function res=generate_vec_temp(elements_on_diaglonal,n_max)
+Nnm=(n_max+1)^2;
+res=zeros([Nnm,1]);
 inc=1;
 for n=0:n_max
-    temp(inc:(inc+2*n))=elements_on_diaglonal(n+1);
+    res(inc:(inc+2*n))=elements_on_diaglonal(n+1);
     inc=inc+2*n+1;
 end
-n_diag_matrix=sparse(diag(temp));
+end
+
+function n_diag_matrix=generate_diagonal_matrix_n(elements_on_diaglonal,n_max)
+Nnm=(n_max+1)^2;
+n_diag_matrix=spdiags(generate_vec_temp(elements_on_diaglonal,n_max),0,Nnm,Nnm); %n_diag_matrix=sparse(diag(temp));
 end
